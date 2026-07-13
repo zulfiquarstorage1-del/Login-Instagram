@@ -125,3 +125,8 @@ body {
   background-color: rgba(75, 141, 248, 0.05);
   border-color: #4b8df8;
 }
+#message {
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    text-align: center;
+}
