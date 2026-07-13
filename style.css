@@ -99,7 +99,7 @@ body {
   font-size: 15px;
   font-weight: 500;
   margin-top: 20px;
-  margin-bottom: 140px; /* Large gap before the bottom button */
+  margin-bottom: 140px;
   transition: opacity 0.2s;
 }
 
@@ -125,8 +125,9 @@ body {
   background-color: rgba(75, 141, 248, 0.05);
   border-color: #4b8df8;
 }
+
 #message {
-    margin-bottom: 15px;
-    font-size: 0.9rem;
-    text-align: center;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+  text-align: center;
 }
